@@ -71,7 +71,7 @@ express()
 
 
     //get the image buffer
-    const image = await makeMeme({ url, input });
+    const image = await makeMeme();
 
     //create headers object
     const headers = { "Content-Type": "image/jpg" };
