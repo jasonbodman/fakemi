@@ -9,9 +9,6 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
   .get('/campaigns/:job/:image', (req, res) => {
     const job = req?.params?.job
-    const image = req?.params?.image
-    
-    const url = "http://quacks.web-mm.com/grabs/' + job + '/' + image
-    res.send(url)
+    res.send("Job: " + job)
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
