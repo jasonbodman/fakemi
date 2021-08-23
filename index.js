@@ -9,6 +9,7 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
   .get('/campaigns/:job/:image', (req, res) => {
     const job = req?.params?.job
-    res.send("Job: " + job)
+    const image = req?.params?.image
+    res.send("Job: " + job + "; Image: " + image)
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
