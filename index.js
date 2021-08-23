@@ -11,7 +11,7 @@ express()
     const job = req?.params?.job
     const image = req?.params?.image
     
-    const url = "http://quacks.web-mm.com/grabs/" + job + "/" + image
-    res.send("URL: " + url)
+    res.setHeader("content-disposition", "attachment; filename=logo.png");
+    request('http://quacks.web-mm.com/grabs/" + job + "/" + image).pipe(res);
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
