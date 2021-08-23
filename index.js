@@ -7,7 +7,7 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
-  .get('/campaigns/:job/:image', (req, res) => {
+  .get('/campaigns/:job/:image', async (req, res) => {
     const job = req?.params?.job
     const image = req?.params?.image
     
