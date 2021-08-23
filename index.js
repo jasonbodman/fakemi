@@ -4,10 +4,6 @@ const PORT = process.env.PORT || 5000
 const { createCanvas, loadImage } = require("canvas");
 
 const makeMeme = async ({
-  //the url of the image to put the text on
-  url,
-  //the text to put on the image
-  input,
 }) => {
   //if there's no image to work with
   //don't try anything
@@ -19,11 +15,11 @@ const makeMeme = async ({
   const fontSetting = "bold 50px Impact";
   context.font = fontSetting;
 
-  const text = context.measureText(input);
+  const text = context.measureText('Hello!');
   const textWidth = text.width;
 
   //loadImage is a function from node-canvas that loads an image
-  const image = await loadImage(url);
+  const image = await loadImage('https://www.petage.com/wp-content/uploads/2019/09/Depositphotos_74974941_xl-2015-e1569443284386-670x627.jpg');
 
   //set the canvas to the same size as the image
   canvas.width = image.width;
@@ -48,12 +44,12 @@ const makeMeme = async ({
   //draw the text in white
   //x uses the value we calculated to center the text
   //y is 30 pixels above the bottom of the image
-  context.fillText(input, center, bottom);
+  context.fillText('Hello!', center, bottom);
 
   //set the color to black
   context.fillStyle = "black";
   //draw the outline in black
-  context.strokeText(input, center, bottom);
+  context.strokeText('Hello!', center, bottom);
 
   //return the buffer
   return canvas.toBuffer();
@@ -69,25 +65,10 @@ express()
     res.set('Content-Type', 'image/png')
     res.send()
   })
-  app.get("/meme/:input/:url*", async (req, res) => {
+  app.get("/meme", async (req, res) => {
     const { params } = req;
     //get the text input string from the request parameters
-    const input = params?.input;
 
-
-    //urls have '/' characters in them
-    //but '/' is what express uses to divide up route parameters
-    //so to match the whole url, we use an asterisk '*'
-    //the asterisk matches everything after the first '/'
-    //and assigns it to params[0]
-
-    //so params.url will usually be http:
-    const baseUrl = params?.url;
-    //and params[0] will be www.myImageHost.com/image.jpg
-    const restOfUrl = params?.[0];
-
-    //put the baseUrl and restOfUrl together
-    const url = baseUrl + restOfUrl;
 
     //get the image buffer
     const image = await makeMeme({ url, input });
