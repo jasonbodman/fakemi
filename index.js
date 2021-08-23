@@ -12,15 +12,7 @@ express()
     const image = req?.params?.image
     
     const url = "http://quacks.web-mm.com/grabs/" + job + "/" + image
-    request({
-      url: url,
-      encoding: null
-    }, 
-    (err, resp, buffer) => {
-      if (!err && resp.statusCode === 200){
-        res.set("Content-Type", "image/jpeg")
-        res.send(resp.body)
-      }
-    })  
+    res.set('Content-Type', 'text/html')
+    res.send(Buffer.from('<img src="' + url + '" />'))  
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
